@@ -1,98 +1,242 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# TechStore Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST desarrollada con **NestJS** y **MongoDB** para gestionar el catálogo de productos de una tienda de tecnología. Permite crear, listar, actualizar y eliminar productos de forma lógica (soft delete).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Requisitos
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Node.js](https://nodejs.org/) v18 o superior
+- [pnpm](https://pnpm.io/) v8 o superior
+- Una base de datos **MongoDB** (local o Atlas)
 
-## Project setup
+---
 
-```bash
-$ pnpm install
+## Configuración del entorno
+
+Crear un archivo `.env` en la raíz del proyecto basándose en `.env.example`:
+
+```env
+MONGODB_URI=mongodb+srv://USUARIO:CONTRASENA@CLUSTER.mongodb.net/techstore?retryWrites=true&w=majority
+PORT=3000
 ```
 
-## Compile and run the project
+---
+
+## Pasos para levantar el proyecto
 
 ```bash
-# development
-$ pnpm run start
+# 1. Instalar dependencias
+pnpm install
 
-# watch mode
-$ pnpm run start:dev
+# 2. Levantar en modo desarrollo (con hot reload)
+pnpm run start:dev
 
-# production mode
-$ pnpm run start:prod
+# 3. O bien levantar en modo producción
+pnpm run build
+pnpm run start:prod
 ```
 
-## Run tests
+La API quedará disponible en `http://localhost:3000`.
 
-```bash
-# unit tests
-$ pnpm run test
+---
 
-# e2e tests
-$ pnpm run test:e2e
+## Endpoints de Productos
 
-# test coverage
-$ pnpm run test:cov
+Base URL: `/productos`
+
+---
+
+### GET /productos
+
+Retorna todos los productos activos, ordenados por fecha de creación descendente.
+
+**Ejemplo de llamada:**
+```
+GET http://localhost:3000/productos
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+**Ejemplo de respuesta:**
+```json
+[
+  {
+    "_id": "6657c3a2f1e4a2b3c4d5e6f7",
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad 3",
+    "descripcion": "Laptop para uso general con procesador AMD Ryzen 5",
+    "marca": "Lenovo",
+    "modelo": "IdeaPad 3",
+    "categoriaId": "6657c3a2f1e4a2b3c4d5e600",
+    "precio": 850000,
+    "moneda": "ARS",
+    "stock": 15,
+    "imagenes": ["https://ejemplo.com/imagen1.jpg"],
+    "especificaciones": {
+      "ram": "8GB",
+      "almacenamiento": "512GB SSD"
+    },
+    "etiquetas": ["laptop", "amd", "oferta"],
+    "valoracionPromedio": 4.5,
+    "cantidadResenias": 12,
+    "activo": true,
+    "eliminadoEn": null,
+    "creadoEn": "2025-06-01T10:00:00.000Z",
+    "actualizadoEn": "2025-06-01T10:00:00.000Z"
+  }
+]
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+### POST /productos
 
-Check out a few resources that may come in handy when working with NestJS:
+Crea un nuevo producto.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Ejemplo de llamada:**
+```
+POST http://localhost:3000/productos
+Content-Type: application/json
+```
 
-## Support
+**Body requerido:**
+```json
+{
+  "sku": "LAP-001",
+  "nombre": "Laptop Lenovo IdeaPad 3",
+  "descripcion": "Laptop para uso general con procesador AMD Ryzen 5",
+  "marca": "Lenovo",
+  "modelo": "IdeaPad 3",
+  "categoriaId": "6657c3a2f1e4a2b3c4d5e600",
+  "precio": 850000,
+  "stock": 15,
+  "moneda": "ARS",
+  "imagenes": ["https://ejemplo.com/imagen1.jpg"],
+  "especificaciones": {
+    "ram": "8GB",
+    "almacenamiento": "512GB SSD"
+  },
+  "etiquetas": ["laptop", "amd"]
+}
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+> Los campos `moneda`, `imagenes`, `especificaciones`, `etiquetas`, `valoracionPromedio` y `cantidadResenias` son opcionales.
 
-## Stay in touch
+**Ejemplo de respuesta:**
+```json
+{
+  "_id": "6657c3a2f1e4a2b3c4d5e6f7",
+  "sku": "LAP-001",
+  "nombre": "Laptop Lenovo IdeaPad 3",
+  "descripcion": "Laptop para uso general con procesador AMD Ryzen 5",
+  "marca": "Lenovo",
+  "modelo": "IdeaPad 3",
+  "categoriaId": "6657c3a2f1e4a2b3c4d5e600",
+  "precio": 850000,
+  "moneda": "ARS",
+  "stock": 15,
+  "imagenes": ["https://ejemplo.com/imagen1.jpg"],
+  "especificaciones": {
+    "ram": "8GB",
+    "almacenamiento": "512GB SSD"
+  },
+  "etiquetas": ["laptop", "amd"],
+  "valoracionPromedio": 0,
+  "cantidadResenias": 0,
+  "activo": true,
+  "eliminadoEn": null,
+  "creadoEn": "2025-06-01T10:00:00.000Z",
+  "actualizadoEn": "2025-06-01T10:00:00.000Z"
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+### PATCH /productos/:id
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Actualiza parcialmente un producto activo. Solo se actualizan los campos enviados en el body.
+
+**Ejemplo de llamada:**
+```
+PATCH http://localhost:3000/productos/6657c3a2f1e4a2b3c4d5e6f7
+Content-Type: application/json
+```
+
+**Body (todos los campos son opcionales):**
+```json
+{
+  "precio": 900000,
+  "stock": 10,
+  "etiquetas": ["laptop", "amd", "oferta"]
+}
+```
+
+**Ejemplo de respuesta:**
+```json
+{
+  "_id": "6657c3a2f1e4a2b3c4d5e6f7",
+  "sku": "LAP-001",
+  "nombre": "Laptop Lenovo IdeaPad 3",
+  "descripcion": "Laptop para uso general con procesador AMD Ryzen 5",
+  "marca": "Lenovo",
+  "modelo": "IdeaPad 3",
+  "categoriaId": "6657c3a2f1e4a2b3c4d5e600",
+  "precio": 900000,
+  "moneda": "ARS",
+  "stock": 10,
+  "imagenes": ["https://ejemplo.com/imagen1.jpg"],
+  "especificaciones": {
+    "ram": "8GB",
+    "almacenamiento": "512GB SSD"
+  },
+  "etiquetas": ["laptop", "amd", "oferta"],
+  "valoracionPromedio": 4.5,
+  "cantidadResenias": 12,
+  "activo": true,
+  "eliminadoEn": null,
+  "creadoEn": "2025-06-01T10:00:00.000Z",
+  "actualizadoEn": "2025-06-22T15:30:00.000Z"
+}
+```
+
+> Retorna `404 Not Found` si el producto no existe o ya fue eliminado.
+
+---
+
+### DELETE /productos/:id
+
+Realiza una eliminación lógica del producto (soft delete). El producto queda marcado como inactivo con una fecha de eliminación, pero no se borra de la base de datos.
+
+**Ejemplo de llamada:**
+```
+DELETE http://localhost:3000/productos/6657c3a2f1e4a2b3c4d5e6f7
+```
+
+**Ejemplo de respuesta:**
+```json
+{
+  "_id": "6657c3a2f1e4a2b3c4d5e6f7",
+  "sku": "LAP-001",
+  "nombre": "Laptop Lenovo IdeaPad 3",
+  "descripcion": "Laptop para uso general con procesador AMD Ryzen 5",
+  "marca": "Lenovo",
+  "modelo": "IdeaPad 3",
+  "categoriaId": "6657c3a2f1e4a2b3c4d5e600",
+  "precio": 900000,
+  "moneda": "ARS",
+  "stock": 10,
+  "imagenes": ["https://ejemplo.com/imagen1.jpg"],
+  "especificaciones": {
+    "ram": "8GB",
+    "almacenamiento": "512GB SSD"
+  },
+  "etiquetas": ["laptop", "amd", "oferta"],
+  "valoracionPromedio": 4.5,
+  "cantidadResenias": 12,
+  "activo": false,
+  "eliminadoEn": "2025-06-22T16:00:00.000Z",
+  "creadoEn": "2025-06-01T10:00:00.000Z",
+  "actualizadoEn": "2025-06-22T16:00:00.000Z"
+}
+```
+
+> Retorna `404 Not Found` si el producto no existe o ya fue eliminado.
