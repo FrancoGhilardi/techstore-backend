@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ActualizarProductoDto } from './dto/actualizar-producto.dto';
 import { CrearProductoDto } from './dto/crear-producto.dto';
 import { Producto, ProductoDocument } from './schemas/producto.schema';
 
@@ -28,5 +29,33 @@ export class ProductosService {
       activo: true,
       eliminadoEn: null,
     });
+  }
+
+  async actualizar(id: string, actualizarProductoDto: ActualizarProductoDto) {
+    const productoActualizado = await this.productoModel
+      .findOneAndUpdate(
+        {
+          _id: id,
+          activo: true,
+          eliminadoEn: null,
+        },
+        {
+          $set: actualizarProductoDto,
+        },
+        {
+          new: true,
+          runValidators: true,
+        },
+      )
+      .lean()
+      .exec();
+
+    if (!productoActualizado) {
+      throw new NotFoundException(
+        `No se encontró un producto activo con el id ${id}`,
+      );
+    }
+
+    return productoActualizado;
   }
 }
