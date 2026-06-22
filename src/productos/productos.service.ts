@@ -58,4 +58,35 @@ export class ProductosService {
 
     return productoActualizado;
   }
+
+  async eliminar(id: string) {
+    const productoEliminado = await this.productoModel
+      .findOneAndUpdate(
+        {
+          _id: id,
+          activo: true,
+          eliminadoEn: null,
+        },
+        {
+          $set: {
+            activo: false,
+            eliminadoEn: new Date(),
+          },
+        },
+        {
+          new: true,
+          runValidators: true,
+        },
+      )
+      .lean()
+      .exec();
+
+    if (!productoEliminado) {
+      throw new NotFoundException(
+        `No se encontró un producto activo con el id ${id}`,
+      );
+    }
+
+    return productoEliminado;
+  }
 }
