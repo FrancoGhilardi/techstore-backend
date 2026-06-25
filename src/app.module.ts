@@ -16,7 +16,7 @@ import { ProductosModule } from './productos/productos.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         uri: configService.getOrThrow<string>('MONGODB_URI'),
-        dbName: 'techstore',
+        dbName: configService.getOrThrow<string>('MONGODB_DB_NAME_TABLE'),
       }),
     }),
 

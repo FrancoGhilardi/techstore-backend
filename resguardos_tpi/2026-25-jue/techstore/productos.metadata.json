@@ -1,1 +1,50 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"sku":{"$numberInt":"1"}},"name":"sku_1","unique":true},{"v":{"$numberInt":"2"},"key":{"categoriaId":{"$numberInt":"1"}},"name":"categoriaId_1"},{"v":{"$numberInt":"2"},"key":{"_fts":"text","_ftsx":{"$numberInt":"1"}},"name":"nombre_text_descripcion_text","weights":{"descripcion":{"$numberInt":"1"},"nombre":{"$numberInt":"1"}},"default_language":"english","language_override":"language","textIndexVersion":{"$numberInt":"3"}},{"v":{"$numberInt":"2"},"key":{"marca":{"$numberInt":"1"}},"name":"marca_1"},{"v":{"$numberInt":"2"},"key":{"precio":{"$numberInt":"1"}},"name":"precio_1"},{"v":{"$numberInt":"2"},"key":{"activo":{"$numberInt":"1"}},"name":"activo_1"}],"uuid":"d67e7feb97c34c0c9e681a9bc4ac9c80","collectionName":"productos","type":"collection"}
+{
+  "indexes": [
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "_id": { "$numberInt": "1" } },
+      "name": "_id_"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "sku": { "$numberInt": "1" } },
+      "name": "sku_1",
+      "unique": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "categoriaId": { "$numberInt": "1" } },
+      "name": "categoriaId_1"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "_fts": "text", "_ftsx": { "$numberInt": "1" } },
+      "name": "nombre_text_descripcion_text",
+      "weights": {
+        "descripcion": { "$numberInt": "1" },
+        "nombre": { "$numberInt": "1" }
+      },
+      "default_language": "english",
+      "language_override": "language",
+      "textIndexVersion": { "$numberInt": "3" }
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "marca": { "$numberInt": "1" } },
+      "name": "marca_1"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "precio": { "$numberInt": "1" } },
+      "name": "precio_1"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "activo": { "$numberInt": "1" } },
+      "name": "activo_1"
+    }
+  ],
+  "uuid": "d67e7feb97c34c0c9e681a9bc4ac9c80",
+  "collectionName": "productos",
+  "type": "collection"
+}

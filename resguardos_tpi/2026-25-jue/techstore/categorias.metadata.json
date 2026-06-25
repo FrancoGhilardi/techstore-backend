@@ -1,1 +1,23 @@
-{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"key":{"slug":{"$numberInt":"1"}},"name":"slug_1","unique":true},{"v":{"$numberInt":"2"},"key":{"categoriaPadreId":{"$numberInt":"1"}},"name":"categoriaPadreId_1"}],"uuid":"c9c846888ab84414bbaa36e8934e072a","collectionName":"categorias","type":"collection"}
+{
+  "indexes": [
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "_id": { "$numberInt": "1" } },
+      "name": "_id_"
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "slug": { "$numberInt": "1" } },
+      "name": "slug_1",
+      "unique": true
+    },
+    {
+      "v": { "$numberInt": "2" },
+      "key": { "categoriaPadreId": { "$numberInt": "1" } },
+      "name": "categoriaPadreId_1"
+    }
+  ],
+  "uuid": "c9c846888ab84414bbaa36e8934e072a",
+  "collectionName": "categorias",
+  "type": "collection"
+}

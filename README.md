@@ -19,6 +19,7 @@ Crear un archivo `.env` en la raíz del proyecto basándose en `.env.example`:
 ```env
 MONGODB_URI=mongodb+srv://USUARIO:CONTRASENA@CLUSTER.mongodb.net/techstore?retryWrites=true&w=majority
 PORT=3000
+MONGODB_DB_NAME_TABLE=techstore
 ```
 
 ---
@@ -52,11 +53,13 @@ Base URL: `/productos`
 Retorna todos los productos activos, ordenados por fecha de creación descendente.
 
 **Ejemplo de llamada:**
+
 ```
 GET http://localhost:3000/productos
 ```
 
 **Ejemplo de respuesta:**
+
 ```json
 [
   {
@@ -93,12 +96,14 @@ GET http://localhost:3000/productos
 Crea un nuevo producto.
 
 **Ejemplo de llamada:**
+
 ```
 POST http://localhost:3000/productos
 Content-Type: application/json
 ```
 
 **Body requerido:**
+
 ```json
 {
   "sku": "LAP-001",
@@ -122,6 +127,7 @@ Content-Type: application/json
 > Los campos `moneda`, `imagenes`, `especificaciones`, `etiquetas`, `valoracionPromedio` y `cantidadResenias` son opcionales.
 
 **Ejemplo de respuesta:**
+
 ```json
 {
   "_id": "6657c3a2f1e4a2b3c4d5e6f7",
@@ -156,12 +162,14 @@ Content-Type: application/json
 Actualiza parcialmente un producto activo. Solo se actualizan los campos enviados en el body.
 
 **Ejemplo de llamada:**
+
 ```
 PATCH http://localhost:3000/productos/6657c3a2f1e4a2b3c4d5e6f7
 Content-Type: application/json
 ```
 
 **Body (todos los campos son opcionales):**
+
 ```json
 {
   "precio": 900000,
@@ -171,6 +179,7 @@ Content-Type: application/json
 ```
 
 **Ejemplo de respuesta:**
+
 ```json
 {
   "_id": "6657c3a2f1e4a2b3c4d5e6f7",
@@ -207,11 +216,13 @@ Content-Type: application/json
 Realiza una eliminación lógica del producto (soft delete). El producto queda marcado como inactivo con una fecha de eliminación, pero no se borra de la base de datos.
 
 **Ejemplo de llamada:**
+
 ```
 DELETE http://localhost:3000/productos/6657c3a2f1e4a2b3c4d5e6f7
 ```
 
 **Ejemplo de respuesta:**
+
 ```json
 {
   "_id": "6657c3a2f1e4a2b3c4d5e6f7",
